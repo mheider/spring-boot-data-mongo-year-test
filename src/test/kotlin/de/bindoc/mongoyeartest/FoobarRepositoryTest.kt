@@ -16,7 +16,13 @@ class FoobarRepositoryTest {
     lateinit var foobarRepository: FoobarRepository
 
     @Test
-    fun save() {
-        foobarRepository.save(Foobar(year = Year.of(2017), name = "Halo"))
+    fun saveAndLoad() {
+        val saved = foobarRepository.save(Foobar(year = Year.of(2017), name = "Halo"))
+
+        val loaded = foobarRepository.findById(saved.id!!).orElse(null)
+
+        assertEquals(loaded.year, saved.year)
     }
+
+
 }
